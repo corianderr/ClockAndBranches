@@ -38,13 +38,5 @@ int GetDepthCount(Branch branch)
     if (branch.Branches.Count == 0)
         return 1;
 
-    int maxChildDepth = 0;
-    foreach (var b in branch.Branches)
-    {
-        var childDepthCount = GetDepthCount(b);
-        if (maxChildDepth < childDepthCount)
-            maxChildDepth = childDepthCount;
-    }
-
-    return 1 + maxChildDepth;
+    return 1 + branch.Branches.Select(GetDepthCount).Max();
 }
